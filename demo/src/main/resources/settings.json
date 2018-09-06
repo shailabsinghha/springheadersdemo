@@ -1,0 +1,104 @@
+{
+//  "settings": {
+//    "analysis": {
+//      "analyzer": {
+//        "autocomplete": {
+//          "tokenizer": "autocomplete",
+//          "filter": [
+//            "lowercase"
+//          ]
+//        },
+//        "autocomplete_search": {
+//          "tokenizer": "lowercase"
+//        }
+//      },
+//      "tokenizer": {
+//        "autocomplete": {
+//          "type": "edge_ngram",
+//          "min_gram": 2,
+//          "max_gram": 10,
+//          "token_chars": [
+//            "letter",
+//            "digit"
+//          ]
+//        }
+//      }
+//    }
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "my_analyzer": {
+          "tokenizer": "my_tokenizer"
+        }
+      },
+      "tokenizer": {
+        "my_tokenizer": {
+          "type": "ngram",
+          "min_gram": 2,
+          "max_gram": 3,
+          "token_chars": [
+            "letter",
+            "digit"
+          ]
+        }
+      }
+    }
+  },
+    "mappings": {
+      "_doc": {
+        "properties": {
+          "title": {
+            "type": "text",
+            "analyzer": "my_analyzer"
+            //          "search_analyzer": "autocomplete_search"
+          },
+          "description": {
+            "type": "text",
+            "analyzer": "my_analyzer"
+            //          "search_analyzer": "autocomplete_search"
+          },
+          "creator": {
+            "type": "text",
+            "analyzer": "my_analyzer"
+            //          "search_analyzer": "autocomplete_search"
+          },
+          "upload_date": {
+            "type": "date",
+            "format": "yyyy-MM-dd"
+          },
+          "event_name": {
+            "type": "text",
+            "analyzer": "my_analyzer"
+            //          "search_analyzer": "autocomplete_search"
+          },
+          "role": {
+            "type": "text",
+            "analyzer": "my_analyzer"
+            //          "search_analyzer": "autocomplete_search"
+          },
+          "views": {
+            "type": "long"
+          },
+          "shares": {
+            "type": "long"
+          },
+          "ratings": {
+            "type": "long"
+          },
+          "likes": {
+            "type": "long"
+          },
+          "project_details": {
+            "type": "join",
+            "relations": {
+              "project_id": [
+                "tag",
+                "comment",
+                "attachments"
+              ]
+            }
+          }
+        }
+    }
+  }
+}
